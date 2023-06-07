@@ -1,0 +1,108 @@
+﻿<Page x:Class="CarsharingApp.Pages.CarPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:local="clr-namespace:CarsharingApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Каталог автомобилей" Background="White" IsVisibleChanged="Page_IsVisibleChanged">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <WrapPanel HorizontalAlignment="Center">
+                <TextBox Width="200" x:Name="TbCarName" materialDesign:HintAssist.Hint="Поиск по наименованию" TextChanged="TbCarName_TextChanged"/>
+                <ComboBox Width="200" Name="ComboCarClasses" materialDesign:HintAssist.Hint="Класс авто" DisplayMemberPath="CarClassName" SelectionChanged="ComboCarClasses_SelectionChanged"/>
+                <ComboBox Width="200" Name="ComboGearboxTypes" materialDesign:HintAssist.Hint="Тип КПП" DisplayMemberPath="GearboxTypeName" SelectionChanged="ComboGearboxTypes_SelectionChanged"/>
+                <ComboBox Width="200" Name="ComboUnitTypes" materialDesign:HintAssist.Hint="Тип привода" DisplayMemberPath="DriveUnitName" SelectionChanged="ComboUnitTypes_SelectionChanged"/>
+                <ComboBox Width="200" Name="ComboSort" materialDesign:HintAssist.Hint="Сортировка"  SelectionChanged="ComboSort_SelectionChanged">
+                <ComboBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Стоимость аренды"/>
+                        <materialDesign:PackIcon Kind="ArrowUp" Margin="5,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Стоимость аренды"/>
+                        <materialDesign:PackIcon Kind="ArrowDown" Margin="5,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Наиименование авто "/>
+                            <materialDesign:PackIcon Kind="ArrowUp" Margin="5,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Наименование авто"/>
+                            <materialDesign:PackIcon Kind="ArrowDown" Margin="5,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ComboBoxItem>
+                </ComboBox>
+            </WrapPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Время бронирования с "/>
+                <DatePicker x:Name="DatePickerStart" Width="150" Style="{StaticResource MaterialDesignOutlinedDatePicker}" Margin="5" Padding="5" SelectedDateChanged="DatePickerStart_SelectedDateChanged"/>
+                <materialDesign:TimePicker x:Name="TimePickerStart" Width="90" Style="{StaticResource MaterialDesignOutlinedTimePicker}"
+                                               Is24Hours="True" Margin="5" Padding="5" SelectedTimeChanged="TimePickerStart_SelectedTimeChanged"/>
+                <TextBlock Text="по"/>
+                <DatePicker x:Name="DatePickerEnd" Width="150" Style="{StaticResource MaterialDesignOutlinedDatePicker}" Margin="5" Padding="5" SelectedDateChanged="DatePickerEnd_SelectedDateChanged"/>
+                <materialDesign:TimePicker x:Name="TimePickerEnd" Width="90" Style="{StaticResource MaterialDesignOutlinedTimePicker}" Is24Hours="True" Margin="5" Padding="5"
+                                               SelectedTimeChanged="TimePickerEnd_SelectedTimeChanged"/>
+            </StackPanel>
+            <ListView Grid.Row="2" x:Name="ListViewCars" ItemContainerStyle="{StaticResource ListViewItem}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="300">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Image Width="200" Height="200" Stretch="Uniform" HorizontalAlignment="Center">
+                                <Image.Source>
+                                    <Binding Path="CarPhoto">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>/Assets/picture.png</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+                            <StackPanel Grid.Row="1">
+                               
+                                <TextBlock Text="{Binding CarClass.CarClassName}" HorizontalAlignment="Left" Margin="5"/>
+                                <TextBlock Text="{Binding CarName}" HorizontalAlignment="Left" Margin="5" FontSize="20" FontWeight="Bold"/>
+                                <StackPanel Orientation="Horizontal" Margin="5" >
+                                    <materialDesign:PackIcon Kind="CarTransmission" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding GearboxType.GearboxTypeName}" VerticalAlignment="Center"/>
+                                    <materialDesign:PackIcon Kind="CarCog" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                    <TextBlock Text="{Binding DriveUnit.DriveUnitName}" VerticalAlignment="Center"/>
+                                    <materialDesign:PackIcon Kind="GasStation" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                    <TextBlock Text="{Binding AvgConsumption,StringFormat={}{0}л/100км}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <TextBlock Text="Дополнительная информация:" HorizontalAlignment="Left" Margin="5"/>
+                                <TextBlock Text="{Binding CarAdditionalInfo}" HorizontalAlignment="Left" Margin="5,0,5,5" Height="60" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding RentalPrice,StringFormat={}{0:f2} Р/сутки}" FontWeight="Bold" FontSize="15" Foreground="Coral" TextDecorations="Strikethrough"/>
+                                <TextBlock Text="{Binding ActualPrice,StringFormat={}{0:f2} Р/сутки}" FontWeight="Bold" FontSize="20" Foreground="MediumPurple"/>
+                                <Button x:Name="BtnRental" Background="LightCoral" BorderBrush="LightCoral" Foreground="White" Click="BtnRental_Click" Visibility="{Binding RentalVisible}">
+                                    <TextBlock Text="Арендовать" Foreground="White"/>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

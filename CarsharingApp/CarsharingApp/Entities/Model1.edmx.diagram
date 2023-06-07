@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="25e820e3bb95439196ccf547915cc875" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="CarsharingModel.AdditionalService" Width="1.5" PointX="5.375" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsharingModel.CarClass" Width="1.5" PointX="0.625" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsharingModel.Car" Width="1.5" PointX="3.875" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsharingModel.Client" Width="1.5" PointX="7.625" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsharingModel.DriveUnit" Width="1.5" PointX="1" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsharingModel.GearboxType" Width="1.5" PointX="2.875" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsharingModel.RentalAddService" Width="1.5" PointX="8.5" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsharingModel.RentalCar" Width="1.5" PointX="6" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsharingModel.Status" Width="1.5" PointX="1.125" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarsharingModel.sysdiagram" Width="1.5" PointX="14.5" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="CarsharingModel.FK_RentalAddServices_AdditionalServices" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsharingModel.FK_Cars_CarClasses" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsharingModel.FK_Cars_DriveUnits" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsharingModel.FK_Cars_GearboxTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsharingModel.FK_Cars_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsharingModel.FK_RentalCars_Cars" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsharingModel.FK_RentalCars_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsharingModel.FK_RentalAddServices_RentalCars" ManuallyRouted="false" />
+        <AssociationConnector Association="CarsharingModel.FK_RentalCars_Statuses" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

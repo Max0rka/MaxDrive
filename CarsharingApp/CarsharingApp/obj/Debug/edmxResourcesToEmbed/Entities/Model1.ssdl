@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище CarsharingModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AdditionalServices">
+    <Key>
+      <PropertyRef Name="AddServiceId" />
+    </Key>
+    <Property Name="AddServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AddServiceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="AddServiceDescription" Type="nvarchar" MaxLength="200" />
+    <Property Name="AddServicePrice" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CarClasses">
+    <Key>
+      <PropertyRef Name="CarClassId" />
+    </Key>
+    <Property Name="CarClassId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarClassName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CarClassDescription" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Cars">
+    <Key>
+      <PropertyRef Name="CarId" />
+    </Key>
+    <Property Name="CarId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CarImage" Type="varbinary(max)" />
+    <Property Name="CarClassId" Type="int" Nullable="false" />
+    <Property Name="GearboxTypeId" Type="int" Nullable="false" />
+    <Property Name="DriveUnitId" Type="int" Nullable="false" />
+    <Property Name="RentalPrice" Type="money" Nullable="false" />
+    <Property Name="CarAdditionalInfo" Type="nvarchar" MaxLength="500" />
+    <Property Name="AvgConsumption" Type="float" Nullable="false" />
+    <Property Name="Discount" Type="tinyint" Nullable="false" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="ClientId" />
+    </Key>
+    <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateOfBirth" Type="date" Nullable="false" />
+    <Property Name="Gender" Type="bit" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="17" Nullable="false" />
+    <Property Name="ClientImage" Type="varbinary(max)" />
+    <Property Name="Login" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DriveLicenseNum" Type="nvarchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DriveUnits">
+    <Key>
+      <PropertyRef Name="DriveUnitId" />
+    </Key>
+    <Property Name="DriveUnitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DriveUnitName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GearboxTypes">
+    <Key>
+      <PropertyRef Name="GearboxTypeId" />
+    </Key>
+    <Property Name="GearboxTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GearboxTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RentalAddServices">
+    <Key>
+      <PropertyRef Name="RentalAddServiceId" />
+    </Key>
+    <Property Name="RentalAddServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RentalCarId" Type="int" Nullable="false" />
+    <Property Name="AddServiceId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RentalCars">
+    <Key>
+      <PropertyRef Name="RentalCarId" />
+    </Key>
+    <Property Name="RentalCarId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarId" Type="int" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+    <Property Name="RentalStart" Type="datetime" Nullable="false" />
+    <Property Name="RentalEnd" Type="datetime" Nullable="false" />
+    <Property Name="RentalPrice" Type="money" Nullable="false" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Statuses">
+    <Key>
+      <PropertyRef Name="StatusId" />
+    </Key>
+    <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="StatusCode" Type="tinyint" Nullable="false" />
+    <Property Name="StatusDescription" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Cars_CarClasses">
+    <End Role="CarClasses" Type="Self.CarClasses" Multiplicity="1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarClasses">
+        <PropertyRef Name="CarClassId" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="CarClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_DriveUnits">
+    <End Role="DriveUnits" Type="Self.DriveUnits" Multiplicity="1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DriveUnits">
+        <PropertyRef Name="DriveUnitId" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="DriveUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_GearboxTypes">
+    <End Role="GearboxTypes" Type="Self.GearboxTypes" Multiplicity="1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GearboxTypes">
+        <PropertyRef Name="GearboxTypeId" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="GearboxTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cars_Statuses">
+    <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Statuses">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="Cars">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RentalAddServices_AdditionalServices">
+    <End Role="AdditionalServices" Type="Self.AdditionalServices" Multiplicity="1" />
+    <End Role="RentalAddServices" Type="Self.RentalAddServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AdditionalServices">
+        <PropertyRef Name="AddServiceId" />
+      </Principal>
+      <Dependent Role="RentalAddServices">
+        <PropertyRef Name="AddServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RentalAddServices_RentalCars">
+    <End Role="RentalCars" Type="Self.RentalCars" Multiplicity="1" />
+    <End Role="RentalAddServices" Type="Self.RentalAddServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RentalCars">
+        <PropertyRef Name="RentalCarId" />
+      </Principal>
+      <Dependent Role="RentalAddServices">
+        <PropertyRef Name="RentalCarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RentalCars_Cars">
+    <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+    <End Role="RentalCars" Type="Self.RentalCars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cars">
+        <PropertyRef Name="CarId" />
+      </Principal>
+      <Dependent Role="RentalCars">
+        <PropertyRef Name="CarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RentalCars_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="RentalCars" Type="Self.RentalCars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ClientId" />
+      </Principal>
+      <Dependent Role="RentalCars">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RentalCars_Statuses">
+    <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+    <End Role="RentalCars" Type="Self.RentalCars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Statuses">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="RentalCars">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище CarsharingModelContainer">
+    <EntitySet Name="AdditionalServices" EntityType="Self.AdditionalServices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CarClasses" EntityType="Self.CarClasses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DriveUnits" EntityType="Self.DriveUnits" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GearboxTypes" EntityType="Self.GearboxTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RentalAddServices" EntityType="Self.RentalAddServices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RentalCars" EntityType="Self.RentalCars" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Statuses" EntityType="Self.Statuses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Cars_CarClasses" Association="Self.FK_Cars_CarClasses">
+      <End Role="CarClasses" EntitySet="CarClasses" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_DriveUnits" Association="Self.FK_Cars_DriveUnits">
+      <End Role="DriveUnits" EntitySet="DriveUnits" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_GearboxTypes" Association="Self.FK_Cars_GearboxTypes">
+      <End Role="GearboxTypes" EntitySet="GearboxTypes" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cars_Statuses" Association="Self.FK_Cars_Statuses">
+      <End Role="Statuses" EntitySet="Statuses" />
+      <End Role="Cars" EntitySet="Cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RentalAddServices_AdditionalServices" Association="Self.FK_RentalAddServices_AdditionalServices">
+      <End Role="AdditionalServices" EntitySet="AdditionalServices" />
+      <End Role="RentalAddServices" EntitySet="RentalAddServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RentalAddServices_RentalCars" Association="Self.FK_RentalAddServices_RentalCars">
+      <End Role="RentalCars" EntitySet="RentalCars" />
+      <End Role="RentalAddServices" EntitySet="RentalAddServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RentalCars_Cars" Association="Self.FK_RentalCars_Cars">
+      <End Role="Cars" EntitySet="Cars" />
+      <End Role="RentalCars" EntitySet="RentalCars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RentalCars_Clients" Association="Self.FK_RentalCars_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="RentalCars" EntitySet="RentalCars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RentalCars_Statuses" Association="Self.FK_RentalCars_Statuses">
+      <End Role="Statuses" EntitySet="Statuses" />
+      <End Role="RentalCars" EntitySet="RentalCars" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
